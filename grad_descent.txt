@@ -1,0 +1,20 @@
+def GradientDescent(start,learn_rate,grad,toler=0.000001):
+	ans=[start]
+	x=start
+	diff=1
+	while(diff>toler):
+		prev=x
+		x=x-learn_rate*grad(x)
+		ans.append(x)
+		diff=abs(prev-x)
+	result=ans[len(ans)-1]
+	return ans,len(ans),result,learn_rate
+
+def diff_eqtn(x):
+	return 2*(x+3)
+
+process,steps,rslt,lr=GradientDescent(2,0.01,diff_eqtn)
+print('Steps In Gradient Descent : ',process)
+print('Lerning Rate : ',lr)
+print('Number Of Steps : ',steps)
+print('Result : ',rslt)
