@@ -1,0 +1,36 @@
+import pandas as pd
+
+df=pd.read_csv("C:\\Users\\Rohit\\OneDrive\\Desktop\\datasets\\sales_data_sample.csv",encoding="latin1")
+
+x=df.iloc[:,[1,4]]
+
+from sklearn.cluster import KMeans
+
+list=[]
+k=range(1,10)
+for i in k:
+    km=KMeans(n_clusters=i)
+    km.fit(x)
+    list.append(km.inertia_)
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+plt.plot(k,list)
+
+kmean=KMeans(n_clusters=3)
+kmean.fit(x)
+
+y_pred=kmean.fit_predict(x)
+
+x['cls']=y_pred
+
+x['cls'].unique()
+
+x0=x[x.cls==0]
+x1=x[x.cls==1]
+x2=x[x.cls==2]
+
+plt.scatter(x0['QUANTITYORDERED'],x0['SALES'])
+plt.scatter(x1['QUANTITYORDERED'],x1['SALES'])
+plt.scatter(x2['QUANTITYORDERED'],x2['SALES'])
+
